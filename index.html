@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Little Cactus Breakfasts | San Carlos</title>
+    <!-- FUENTES PREMIUM -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'>
+    <link rel='stylesheet' href='css/style.css'>
+    <style>
+        /* INYECCIÓN DE ESTILOS ADVANCE ELITE */
+        body { margin: 0; background: #fafafa; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        
+        .hero { 
+            height: 40vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
+            background: white;
+        }
+
+        .main-logo { width: 150px; border-radius: 50%; border: 1.5px solid #D4AF37; padding: 5px; }
+        .tagline { font-family: 'Playfair Display', serif; letter-spacing: 4px; font-size: 1rem; margin-top: 15px; color: #1a1a1a; }
+        .location-badge { font-size: 0.7rem; letter-spacing: 2px; color: #888; text-transform: uppercase; }
+
+        .social-hub {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .social-icon {
+            text-decoration: none;
+            width: 85%;
+            max-width: 350px;
+            padding: 18px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 400;
+            color: white;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn-main { background: #1a1a1a; color: #D4AF37; border: 1px solid #D4AF37; }
+        .wa { background: #25D366; }
+        .fb { background: #1877F2; }
+        .ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+
+        /* LÓGICA DE INTERACCIÓN & ANIMACIÓN */
+        .social-icon:hover { transform: scale(1.05); }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .menu-content {
+            width: 90%;
+            max-width: 700px;
+            padding: 100px 20px;
+            text-align: left;
+        }
+
+        .menu-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #1a1a1a; margin-bottom: 40px; text-align: center; }
+        .category-title { font-family: 'Playfair Display', serif; color: #D4AF37; font-size: 1.6rem; border-bottom: 0.5px solid rgba(212,175,55,0.3); margin-top: 30px; font-style: italic; }
+        .menu-item { margin: 20px 0; transition: transform 0.3s ease; }
+        .menu-item:hover { transform: translateX(10px); }
+        .menu-item h4 { margin: 0; font-weight: 400; font-size: 1.1rem; color: #222; }
+        .menu-item p { margin: 5px 0; font-size: 0.9rem; color: #666; font-weight: 300; }
+
+        .close-btn {
+            position: absolute;
+            top: 30px; right: 40px;
+            font-size: 3rem; color: #D4AF37;
+            cursor: pointer; font-weight: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <section class='hero'>
+        <div class='logo-container'>
+            <img src='assets/logo.jpg' alt='Little Cactus Logo' class='main-logo'>
+            <div class='brand-info'>
+                <h2 class='tagline'>DESAYUNOS CON ORIGEN</h2>
+                <p class='location-badge'>SAN CARLOS, SONORA</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="social-hub">
+        <!-- MAPA (Priorizado por tu regla order: -1) -->
+        <a href="https://www.google.com/maps?q=Jupiter+85506+San+Carlos,+Mexico" class="social-icon maps" target="_blank" style="background-color: #EA4335;">
+            <i class="fas fa-location-dot" style="margin-right: 15px;"></i> UBICACIÓN
+        </a>
+
+        <!-- BOTÓN DE MENÚ ELITE -->
+        <a href="javascript:void(0)" class="social-icon menu-btn-main" onclick="openMenu()">
+            <i class="fas fa-utensils" style="margin-right: 15px;"></i> MENÚ DIGITAL
+        </a>
+
+        <a href="https://wa.me/526221456134?text=Hola!%20Me%20gustaría%20hacer%20una%20reservación" class="social-icon wa" target="_blank">
+            <i class="fab fa-whatsapp" style="margin-right: 15px;"></i> WHATSAPP
+        </a>
+
+        <a href="https://www.instagram.com/littlecactus.sc/" class="social-icon ig" target="_blank">
+            <i class="fab fa-instagram" style="margin-right: 15px;"></i> INSTAGRAM
+        </a>
+    </div>
+
+    <!-- OVERLAY DE MENÚ -->
+    <div id="menu-overlay" class="menu-overlay">
+        <div class="menu-content">
+            <span class="close-btn" onclick="closeMenu()">&times;</span>
+            <h1 class="menu-title">Nuestra Carta</h1>
+            
+            <div class="category-title">Chilaquiles con Origen</div>
+            <div class="menu-item">
+                <h4>Chilaquiles Little Cactus</h4>
+                <p>Salsa roja artesanal, crema de rancho, queso fresco y aguacate.</p>
+            </div>
+            <div class="menu-item">
+                <h4>Chilaquiles Suizos</h4>
+                <p>Bañados en salsa verde cremosa y gratín de la casa.</p>
+            </div>
+
+            <div class="category-title">Bebidas & Café</div>
+            <div class="menu-item">
+                <h4>Café de Especialidad</h4>
+                <p>Tostado artesanalmente para resaltar notas cítricas y dulces.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openMenu() { document.getElementById("menu-overlay").style.display = "flex"; document.body.style.overflow = "hidden"; }
+        function closeMenu() { document.getElementById("menu-overlay").style.display = "none"; document.body.style.overflow = "auto"; }
+    </script>
+</body>
+</html>

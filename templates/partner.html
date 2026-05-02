@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADVANCE | Panel de Mando</title>
+    <style>
+        :root { --neon: #00ff88; --dark: #0a0a0a; --panel: #111; }
+        body { background: var(--dark); color: white; font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--neon); padding-bottom: 20px; margin-bottom: 30px; }
+        .form-card { background: var(--panel); padding: 30px; border-radius: 15px; border: 1px solid #222; margin-bottom: 40px; }
+        input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: white; border-radius: 8px; box-sizing: border-box; }
+        .btn-add { background: var(--neon); color: black; border: none; padding: 15px; width: 100%; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; }
+        table { width: 100%; border-collapse: collapse; background: var(--panel); border-radius: 10px; overflow: hidden; }
+        th { background: #1a1a1a; color: var(--neon); padding: 15px; text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid #222; }
+        .btn-del { color: #ff4444; text-decoration: none; font-weight: bold; padding: 5px 10px; border: 1px solid #ff4444; border-radius: 5px; }
+        .btn-del:hover { background: #ff4444; color: white; }
+        .logout { color: #888; text-decoration: none; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CENTRAL CORE <span style="color:var(--neon)">ADVANCE</span></h1>
+            <a href="/logout" class="logout">Cerrar Sesión [X]</a>
+        </div>
+
+        <div class="form-card">
+            <h3>REGISTRAR NUEVO ACTIVO</h3>
+            <form action="/subir_activo" method="post">
+                <select name="negocio">
+                    <option value="Yates">Yates / Mar</option>
+                    <option value="Real Estate">Real Estate / Villas</option>
+                    <option value="Restaurantes">Restaurantes / VIP</option>
+                    <option value="Experiencias">Experiencias / Tours</option>
+                </select>
+                <input type="text" name="nombre" placeholder="Nombre del Activo (Ej. Yate Advance 01)" required>
+                <input type="text" name="precio" placeholder="Precio (Ej. $500 USD / Hora)" required>
+                <input type="text" name="ciudad" placeholder="Ubicación (Ej. San Carlos, Sonora)" required>
+                <textarea name="desc" placeholder="Descripción breve del servicio..."></textarea>
+                <button type="submit" class="btn-add">Subir a la Red Nacional</button>
+            </form>
+        </div>
+
+        <h3>ACTIVOS EN LA RED</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Nombre</th>
+                    <th>Ubicación</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in activos %}
+                <tr>
+                    <td><span style="color:var(--neon)">{{ item.negocio }}</span></td>
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.ciudad }}</td>
+                    <td><b style="color:#00ff88;">{{ item.status }}</b></td>
+                    <td><a href="/eliminar/{{ item.id }}" class="btn-del" onclick="return confirm('¿Comandante, seguro que quiere eliminar este activo?')">ELIMINAR</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

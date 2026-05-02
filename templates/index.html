@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADVANCE | Elite Network</title>
+    <style>
+        :root { --neon: #00ff88; --dark: #050505; --card: #0f0f0f; }
+        body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; margin: 0; }
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: radial-gradient(circle, #111 0%, #000 100%); border-bottom: 2px solid var(--neon); }
+        .logo { font-size: 5rem; font-weight: 900; letter-spacing: 15px; text-shadow: 0 0 20px var(--neon); margin: 0; }
+        .btn-start { margin-top: 30px; padding: 15px 40px; background: var(--neon); color: #000; text-decoration: none; font-weight: bold; border-radius: 50px; text-transform: uppercase; transition: 0.3s; }
+        .btn-start:hover { box-shadow: 0 0 30px var(--neon); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; padding: 50px; }
+        .card { background: var(--card); border: 1px solid #222; border-radius: 20px; overflow: hidden; transition: 0.4s; }
+        .card:hover { border-color: var(--neon); transform: scale(1.02); }
+        .card-content { padding: 25px; }
+        .price { font-size: 1.5rem; color: var(--neon); font-weight: bold; margin: 10px 0; }
+        .btn-wa { display: block; background: #25d366; color: #000; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo">ADVANCE</h1>
+        <p style="letter-spacing: 5px; color: #555;">ESTADO DE SONORA | ÉLITE</p>
+        <a href="#catalogo" class="btn-start">Explorar Activos</a>
+    </header>
+    <div id="catalogo" class="grid">
+        {% for item in activos %}
+        <div class="card">
+            <div class="card-content">
+                <span style="color:var(--neon); font-size: 0.8rem;">● {{ item.negocio }}</span>
+                <h2 style="margin: 10px 0;">{{ item.nombre }}</h2>
+                <p style="color:#888;">📍 {{ item.ciudad }}</p>
+                <div class="price">{{ item.precio }}</div>
+                <a href="https://wa.me/526221234567?text=Comandante, me interesa: {{ item.nombre }}" class="btn-wa" target="_blank">CONTACTAR AL COMANDANTE</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
